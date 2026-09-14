@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Bank Management System</title>
+
+
+    <style>
+
+        /* =====================================================
+           COMMON
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =====================================================
+           PAGE 1 - LOGIN PAGE
+        ===================================================== */
+
+        #loginPage {
+
+            width: 100%;
+            height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            background:
+            linear-gradient(
+                rgba(5, 20, 55, 0.78),
+                rgba(5, 20, 55, 0.88)
+            ),
+            url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1920&q=80");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+
+        .login-box {
+
+            width: 430px;
+
+            padding: 45px;
+
+            background: rgba(255,255,255,0.96);
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            box-shadow:
+            0 20px 60px rgba(0,0,0,0.45);
+        }
+
+
+        .bank-icon {
+
+            font-size: 70px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .login-box h1 {
+
+            color: #163b8f;
+
+            font-size: 31px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .subtitle {
+
+            color: #666;
+
+            margin-bottom: 30px;
+
+            font-size: 15px;
+        }
+
+
+        .login-box label {
+
+            display: block;
+
+            text-align: left;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+
+            color: #333;
+        }
+
+
+        .login-box input {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: 2px solid #ddd;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            outline: none;
+
+            margin-bottom: 18px;
+        }
+
+
+        .login-box input:focus {
+
+            border-color: #24479c;
+        }
+
+
+        .login-button {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #24479c;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .login-button:hover {
+
+            background: #142d6c;
+
+            transform: translateY(-2px);
+        }
+
+
+        #loginMessage {
+
+            margin-top: 18px;
+
+            font-weight: bold;
+        }
+
+
+        .login-footer {
+
+            margin-top: 30px;
+
+            color: #888;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           PAGE 2 - BANK MANAGEMENT SYSTEM
+        ===================================================== */
+
+        #bankPage {
+
+            display: none;
+
+            background: #f4f6f9;
+
+            color: #222;
+
+            min-height: 100vh;
+        }
+
+
+        header {
+
+            background: #1e3a8a;
+
+            color: white;
+
+            padding: 25px;
+
+            text-align: center;
+        }
+
+
+        header h1 {
+
+            margin-bottom: 8px;
+        }
+
+
+        header p {
+
+            font-size: 17px;
+        }
+
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1100px;
+
+            margin: 30px auto;
+        }
+
+
+        /* =====================================================
+           DASHBOARD
+        ===================================================== */
+
+        .dashboard {
+
+            display: grid;
+
+            grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
+
+            gap: 20px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            box-shadow:
+            0 4px 12px rgba(0,0,0,0.1);
+
+            text-align: center;
+        }
+
+
+        .card h3 {
+
+            color: #555;
+
+            margin-bottom: 10px;
+        }
+
+
+        .card p {
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            color: #1e3a8a;
+        }
+
+
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
+
+        .section {
+
+            background: white;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            border-radius: 12px;
+
+            box-shadow:
+            0 4px 12px rgba(0,0,0,0.08);
+        }
+
+
+        .section h2 {
+
+            margin-bottom: 20px;
+
+            color: #1e3a8a;
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
+
+            gap: 15px;
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+        }
+
+
+        .action-button {
+
+            padding: 12px 18px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #1e3a8a;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            margin-top: 15px;
+        }
+
+
+        .action-button:hover {
+
+            background: #172d6b;
+        }
+
+
+        .success {
+
+            color: green;
+
+            margin-top: 15px;
+        }
+
+
+        .error {
+
+            color: red;
+
+            margin-top: 15px;
+        }
+
+
+        /* =====================================================
+           TABLE
+        ===================================================== */
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 15px;
+        }
+
+
+        table th,
+        table td {
+
+            border: 1px solid #ddd;
+
+            padding: 12px;
+
+            text-align: left;
+        }
+
+
+        table th {
+
+            background: #1e3a8a;
+
+            color: white;
+        }
+
+
+        table tr:nth-child(even) {
+
+            background: #f8f8f8;
+        }
+
+
+        /* =====================================================
+           ACCOUNT DETAILS
+        ===================================================== */
+
+        .account-details {
+
+            background: #eef4ff;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+            margin-top: 15px;
+
+            line-height: 2;
+        }
+
+
+        /* =====================================================
+           FRAUD ALERT
+        ===================================================== */
+
+        .fraud-alert {
+
+            display: none;
+
+            background: #fee2e2;
+
+            border: 2px solid #dc2626;
+
+            color: #991b1b;
+
+            padding: 20px;
+
+            margin-bottom: 20px;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           LOGOUT BUTTON
+        ===================================================== */
+
+        .logout-button {
+
+            background: #dc2626;
+
+            float: right;
+
+            padding: 10px 18px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .logout-button:hover {
+
+            background: #991b1b;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            text-align: center;
+
+            padding: 25px;
+
+            background: #1e3a8a;
+
+            color: white;
+
+            margin-top: 40px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media(max-width:600px) {
+
+            .container {
+
+                width: 95%;
+            }
+
+
+            .login-box {
+
+                width: 90%;
+
+                padding: 30px 25px;
+            }
+
+
+            .login-box h1 {
+
+                font-size: 25px;
+            }
+
+
+            table {
+
+                font-size: 13px;
+            }
+
+
+            .logout-button {
+
+                float: none;
+
+                margin-top: 15px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     PAGE 1 - LOGIN
+========================================================= -->
+
+<div id="loginPage">
+
+
+    <div class="login-box">
+
+
+        <div class="bank-icon">
+
+            🏦
+
+        </div>
+
+
+        <h1>
+
+            BANK MANAGEMENT SYSTEM
+
+        </h1>
+
+
+        <p class="subtitle">
+
+            Secure Banking Management Portal
+
+        </p>
+
+
+        <form onsubmit="login(event)">
+
+
+            <label>
+
+                Enter Password
+
+            </label>
+
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="login-button"
+            >
+
+                🔐 LOGIN
+
+            </button>
+
+
+        </form>
+
+
+        <p id="loginMessage"></p>
+
+
+        <div class="login-footer">
+
+            Transaction Ledger •
+            Fraud Detection •
+            Account Management
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     PAGE 2 - BANK MANAGEMENT SYSTEM
+========================================================= -->
+
+<div id="bankPage">
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <h1>
+
+            🏦 Bank Management System
+
+        </h1>
+
+
+        <p>
+
+            Transaction Ledger •
+            Fraud Detection •
+            Account Management
+
+        </p>
+
+
+        <button
+            class="logout-button"
+            onclick="logout()"
+        >
+
+            Logout
+
+        </button>
+
+        <div style="clear:both;"></div>
+
+    </header>
+
+
+
+    <div class="container">
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================= -->
+
+        <div class="dashboard">
+
+
+            <div class="card">
+
+                <h3>
+
+                    Total Accounts
+
+                </h3>
+
+                <p id="totalAccounts">
+
+                    0
+
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+
+                    Total Balance
+
+                </h3>
+
+                <p id="totalBalance">
+
+                    ₹0.00
+
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+
+                    Total Transactions
+
+                </h3>
+
+                <p id="totalTransactions">
+
+                    0
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FRAUD ALERT
+        ================================================= -->
+
+        <div
+            id="fraudAlert"
+            class="fraud-alert"
+        >
+
+            🚨 FRAUD ALERT 🚨
+
+            <p id="fraudMessage"></p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CREATE ACCOUNT
+        ================================================= -->
+
+        <div class="section">
+
+
+            <h2>
+
+                ➕ Create Account
+
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <input
+                    type="number"
+                    id="accountNumber"
+                    placeholder="Account Number"
+                >
+
+
+                <input
+                    type="text"
+                    id="accountName"
+                    placeholder="Customer Name"
+                >
+
+
+                <input
+                    type="number"
+                    id="initialBalance"
+                    placeholder="Initial Balance"
+                >
+
+
+            </div>
+
+
+            <button
+                class="action-button"
+                onclick="createAccount()"
+            >
+
+                Create Account
+
+            </button>
+
+
+            <p id="createMessage"></p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             DEPOSIT
+        ================================================= -->
+
+        <div class="section">
+
+
+            <h2>
+
+                💰 Deposit Money
+
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <input
+                    type="number"
+                    id="depositAccount"
+                    placeholder="Account Number"
+                >
+
+
+                <input
+                    type="number"
+                    id="depositAmount"
+                    placeholder="Amount"
+                >
+
+
+            </div>
+
+
+            <button
+                class="action-button"
+                onclick="depositMoney()"
+            >
+
+                Deposit
+
+            </button>
+
+
+            <p id="depositMessage"></p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             WITHDRAW
+        ================================================= -->
+
+        <div class="section">
+
+
+            <h2>
+
+                💸 Withdraw Money
+
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <input
+                    type="number"
+                    id="withdrawAccount"
+                    placeholder="Account Number"
+                >
+
+
+                <input
+                    type="number"
+                    id="withdrawAmount"
+                    placeholder="Amount"
+                >
+
+
+            </div>
+
+
+            <button
+                class="action-button"
+                onclick="withdrawMoney()"
+            >
+
+                Withdraw
+
+            </button>
+
+
+            <p id="withdrawMessage"></p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             TRANSFER
+        ================================================= -->
+
+        <div class="section">
+
+
+            <h2>
+
+                🔄 Transfer Money
+
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <input
+                    type="number"
+                    id="senderAccount"
+                    placeholder="Sender Account"
+                >
+
+
+                <input
+                    type="number"
+                    id="receiverAccount"
+                    placeholder="Receiver Account"
+                >
+
+
+                <input
+                    type="number"
+                    id="transferAmount"
+                    placeholder="Transfer Amount"
+                >
+
+
+            </div>
+
+
+            <button
+                class="action-button"
+                onclick="transferMoney()"
+            >
+
+                Transfer
+
+            </button>
+
+
+            <p id="transferMessage"></p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SEARCH ACCOUNT
+        ================================================= -->
+
+        <div class="section">
+
+
+            <h2>
+
+                🔍 Search Account
+
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <input
+                    type="number"
+                    id="searchAccount"
+                    placeholder="Account Number"
+                >
+
+
+            </div>
+
+
+            <button
+                class="action-button"
+                onclick="searchAccount()"
+            >
+
+                Search
+
+            </button>
+
+
+            <div id="searchResult"></div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             TRANSACTION HISTORY
+        ================================================= -->
+
+        <div class="section">
+
+
+            <h2>
+
+                📜 Transaction History
+
+            </h2>
+
+
+            <div class="form-grid">
+
+
+                <input
+                    type="number"
+                    id="historyAccount"
+                    placeholder="Account Number"
+                >
+
+
+            </div>
+
+
+            <button
+                class="action-button"
+                onclick="showHistory()"
+            >
+
+                Show History
+
+            </button>
+
+
+            <div id="historyResult"></div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             BST
+        ================================================= -->
+
+        <div class="section">
+
+
+            <h2>
+
+                🌳 BST - Sorted Account Numbers
+
+            </h2>
+
+
+            <button
+                class="action-button"
+                onclick="showSortedAccounts()"
+            >
+
+                Display Sorted Accounts
+
+            </button>
+
+
+            <div id="sortedAccounts"></div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ALL ACCOUNTS
+        ================================================= -->
+
+        <div class="section">
+
+
+            <h2>
+
+                👥 All Accounts
+
+            </h2>
+
+
+            <button
+                class="action-button"
+                onclick="displayAllAccounts()"
+            >
+
+                Display All Accounts
+
+            </button>
+
+
+            <div id="allAccounts"></div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <footer>
+
+        <p>
+
+            Bank Management System |
+            Transaction Ledger |
+            Fraud Detection
+
+        </p>
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   PAGE 1 LOGIN
+========================================================= */
+
+function login(event) {
+
+
+    event.preventDefault();
+
+
+    const password =
+        document.getElementById("password").value;
+
+
+    const message =
+        document.getElementById("loginMessage");
+
+
+    if (password === "7979985510") {
+
+
+        message.style.color = "green";
+
+
+        message.innerText =
+            "✓ Login successful! Opening system...";
+
+
+        setTimeout(function() {
+
+
+            /*
+
+               PAGE 1 HIDE
+
+            */
+
+            document.getElementById(
+                "loginPage"
+            ).style.display = "none";
+
+
+            /*
+
+               PAGE 2 SHOW
+
+            */
+
+            document.getElementById(
+                "bankPage"
+            ).style.display = "block";
+
+
+        }, 500);
+
+
+    }
+
+    else {
+
+
+        message.style.color = "red";
+
+
+        message.innerText =
+            "❌ Incorrect password!";
+
+
+        document.getElementById(
+            "password"
+        ).value = "";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout() {
+
+
+    document.getElementById(
+        "bankPage"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "loginPage"
+    ).style.display = "flex";
+
+
+    document.getElementById(
+        "password"
+    ).value = "";
+
+
+    document.getElementById(
+        "loginMessage"
+    ).innerText = "";
+
+}
+
+
+
+/* =========================================================
+   BANK DATA
+========================================================= */
+
+let accounts = {};
+
+
+
+/* =========================================================
+   FIND ACCOUNT
+========================================================= */
+
+function findAccount(number) {
+
+    return accounts[number];
+
+}
+
+
+
+/* =========================================================
+   CREATE ACCOUNT
+========================================================= */
+
+function createAccount() {
+
+
+    let number =
+        document.getElementById(
+            "accountNumber"
+        ).value;
+
+
+    let name =
+        document.getElementById(
+            "accountName"
+        ).value;
+
+
+    let balance =
+        parseFloat(
+            document.getElementById(
+                "initialBalance"
+            ).value
+        );
+
+
+    let message =
+        document.getElementById(
+            "createMessage"
+        );
+
+
+    if (!number || !name || isNaN(balance)) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Please enter all details.";
+
+
+        return;
+
+    }
+
+
+    if (balance < 0) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Initial balance cannot be negative.";
+
+
+        return;
+
+    }
+
+
+    if (accounts[number]) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Account already exists!";
+
+
+        return;
+
+    }
+
+
+    accounts[number] = {
+
+
+        accountNumber: number,
+
+        name: name,
+
+        balance: balance,
+
+        transactions: [],
+
+        transactionTimes: []
+
+    };
+
+
+    message.className = "success";
+
+
+    message.innerText =
+        "Account created successfully!";
+
+
+    updateDashboard();
+
+
+}
+
+
+
+/* =========================================================
+   ADD TRANSACTION
+========================================================= */
+
+function addTransaction(
+    account,
+    type,
+    amount,
+    description
+) {
+
+
+    account.transactions.push({
+
+
+        type: type,
+
+        amount: amount,
+
+        description: description,
+
+        time: new Date()
+
+
+    });
+
+}
+
+
+
+/* =========================================================
+   FRAUD DETECTION
+========================================================= */
+
+function checkFraud(account) {
+
+
+    let currentTime =
+        Date.now();
+
+
+    account.transactionTimes =
+        account.transactionTimes.filter(
+
+            function(time) {
+
+
+                return (
+                    currentTime - time <= 60000
+                );
+
+
+            }
+
+        );
+
+
+    account.transactionTimes.push(
+        currentTime
+    );
+
+
+    if (
+        account.transactionTimes.length >= 5
+    ) {
+
+
+        document.getElementById(
+            "fraudAlert"
+        ).style.display = "block";
+
+
+        document.getElementById(
+            "fraudMessage"
+        ).innerText =
+
+            "Account " +
+            account.accountNumber +
+            " has made " +
+            account.transactionTimes.length +
+            " transactions within 60 seconds. Please verify this account.";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   DEPOSIT
+========================================================= */
+
+function depositMoney() {
+
+
+    let number =
+        document.getElementById(
+            "depositAccount"
+        ).value;
+
+
+    let amount =
+        parseFloat(
+            document.getElementById(
+                "depositAmount"
+            ).value
+        );
+
+
+    let message =
+        document.getElementById(
+            "depositMessage"
+        );
+
+
+    let account =
+        findAccount(number);
+
+
+    if (!account) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Account not found.";
+
+
+        return;
+
+    }
+
+
+    if (
+        isNaN(amount) ||
+        amount <= 0
+    ) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Enter a valid amount.";
+
+
+        return;
+
+    }
+
+
+    account.balance += amount;
+
+
+    addTransaction(
+        account,
+        "DEPOSIT",
+        amount,
+        "Money deposited"
+    );
+
+
+    checkFraud(account);
+
+
+    message.className = "success";
+
+
+    message.innerText =
+        "Deposit successful! New Balance: ₹" +
+        account.balance.toFixed(2);
+
+
+    updateDashboard();
+
+}
+
+
+
+/* =========================================================
+   WITHDRAW
+========================================================= */
+
+function withdrawMoney() {
+
+
+    let number =
+        document.getElementById(
+            "withdrawAccount"
+        ).value;
+
+
+    let amount =
+        parseFloat(
+            document.getElementById(
+                "withdrawAmount"
+            ).value
+        );
+
+
+    let message =
+        document.getElementById(
+            "withdrawMessage"
+        );
+
+
+    let account =
+        findAccount(number);
+
+
+    if (!account) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Account not found.";
+
+
+        return;
+
+    }
+
+
+    if (
+        isNaN(amount) ||
+        amount <= 0
+    ) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Enter a valid amount.";
+
+
+        return;
+
+    }
+
+
+    if (amount > account.balance) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Insufficient balance.";
+
+
+        return;
+
+    }
+
+
+    account.balance -= amount;
+
+
+    addTransaction(
+        account,
+        "WITHDRAW",
+        amount,
+        "Money withdrawn"
+    );
+
+
+    checkFraud(account);
+
+
+    message.className = "success";
+
+
+    message.innerText =
+        "Withdrawal successful! New Balance: ₹" +
+        account.balance.toFixed(2);
+
+
+    updateDashboard();
+
+}
+
+
+
+/* =========================================================
+   TRANSFER
+========================================================= */
+
+function transferMoney() {
+
+
+    let senderNumber =
+        document.getElementById(
+            "senderAccount"
+        ).value;
+
+
+    let receiverNumber =
+        document.getElementById(
+            "receiverAccount"
+        ).value;
+
+
+    let amount =
+        parseFloat(
+            document.getElementById(
+                "transferAmount"
+            ).value
+        );
+
+
+    let message =
+        document.getElementById(
+            "transferMessage"
+        );
+
+
+    let sender =
+        findAccount(senderNumber);
+
+
+    let receiver =
+        findAccount(receiverNumber);
+
+
+    if (!sender) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Sender account not found.";
+
+
+        return;
+
+    }
+
+
+    if (!receiver) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Receiver account not found.";
+
+
+        return;
+
+    }
+
+
+    if (
+        senderNumber === receiverNumber
+    ) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Sender and receiver cannot be same.";
+
+
+        return;
+
+    }
+
+
+    if (
+        isNaN(amount) ||
+        amount <= 0
+    ) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Enter a valid amount.";
+
+
+        return;
+
+    }
+
+
+    if (amount > sender.balance) {
+
+
+        message.className = "error";
+
+
+        message.innerText =
+            "Insufficient balance.";
+
+
+        return;
+
+    }
+
+
+    sender.balance -= amount;
+
+
+    receiver.balance += amount;
+
+
+    addTransaction(
+        sender,
+        "TRANSFER",
+        amount,
+        "Transferred to " + receiverNumber
+    );
+
+
+    addTransaction(
+        receiver,
+        "RECEIVED",
+        amount,
+        "Received from " + senderNumber
+    );
+
+
+    checkFraud(sender);
+
+
+    message.className = "success";
+
+
+    message.innerText =
+        "₹" +
+        amount.toFixed(2) +
+        " transferred successfully!";
+
+
+    updateDashboard();
+
+}
+
+
+
+/* =========================================================
+   SEARCH ACCOUNT
+========================================================= */
+
+function searchAccount() {
+
+
+    let number =
+        document.getElementById(
+            "searchAccount"
+        ).value;
+
+
+    let account =
+        findAccount(number);
+
+
+    let result =
+        document.getElementById(
+            "searchResult"
+        );
+
+
+    if (!account) {
+
+
+        result.innerHTML =
+            "<p class='error'>Account not found!</p>";
+
+
+        return;
+
+    }
+
+
+    result.innerHTML = `
+
+        <div class="account-details">
+
+            <h3>Account Details</h3>
+
+            <p>
+                <b>Account Number:</b>
+                ${account.accountNumber}
+            </p>
+
+            <p>
+                <b>Name:</b>
+                ${account.name}
+            </p>
+
+            <p>
+                <b>Balance:</b>
+                ₹${account.balance.toFixed(2)}
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   TRANSACTION HISTORY
+========================================================= */
+
+function showHistory() {
+
+
+    let number =
+        document.getElementById(
+            "historyAccount"
+        ).value;
+
+
+    let account =
+        findAccount(number);
+
+
+    let result =
+        document.getElementById(
+            "historyResult"
+        );
+
+
+    if (!account) {
+
+
+        result.innerHTML =
+            "<p class='error'>Account not found!</p>";
+
+
+        return;
+
+    }
+
+
+    if (
+        account.transactions.length === 0
+    ) {
+
+
+        result.innerHTML =
+            "<p>No transactions found.</p>";
+
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <table>
+
+            <tr>
+
+                <th>Type</th>
+
+                <th>Amount</th>
+
+                <th>Description</th>
+
+                <th>Date & Time</th>
+
+            </tr>
+
+    `;
+
+
+    account.transactions.forEach(
+
+        function(transaction) {
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${transaction.type}
+                    </td>
+
+                    <td>
+                        ₹${transaction.amount.toFixed(2)}
+                    </td>
+
+                    <td>
+                        ${transaction.description}
+                    </td>
+
+                    <td>
+                        ${transaction.time.toLocaleString()}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+    );
+
+
+    html += "</table>";
+
+
+    result.innerHTML = html;
+
+}
+
+
+
+/* =========================================================
+   SORTED ACCOUNTS
+========================================================= */
+
+function showSortedAccounts() {
+
+
+    let numbers =
+
+        Object.keys(accounts)
+        .map(Number)
+        .sort(
+
+            function(a,b) {
+
+                return a - b;
+
+            }
+
+        );
+
+
+    let result =
+        document.getElementById(
+            "sortedAccounts"
+        );
+
+
+    if (numbers.length === 0) {
+
+
+        result.innerHTML =
+            "<p>No accounts available.</p>";
+
+
+        return;
+
+    }
+
+
+    result.innerHTML = `
+
+        <div class="account-details">
+
+            <b>Accounts in sorted order:</b>
+
+            <p>
+
+                ${numbers.join(" → ")}
+
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   DISPLAY ALL ACCOUNTS
+========================================================= */
+
+function displayAllAccounts() {
+
+
+    let result =
+        document.getElementById(
+            "allAccounts"
+        );
+
+
+    let accountList =
+        Object.values(accounts);
+
+
+    if (accountList.length === 0) {
+
+
+        result.innerHTML =
+            "<p>No accounts available.</p>";
+
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <table>
+
+            <tr>
+
+                <th>Account Number</th>
+
+                <th>Name</th>
+
+                <th>Balance</th>
+
+            </tr>
+
+    `;
+
+
+    accountList.forEach(
+
+        function(account) {
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${account.accountNumber}
+                    </td>
+
+                    <td>
+                        ${account.name}
+                    </td>
+
+                    <td>
+                        ₹${account.balance.toFixed(2)}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+    );
+
+
+    html += "</table>";
+
+
+    result.innerHTML = html;
+
+}
+
+
+
+/* =========================================================
+   DASHBOARD UPDATE
+========================================================= */
+
+function updateDashboard() {
+
+
+    let accountList =
+        Object.values(accounts);
+
+
+    let totalBalance = 0;
+
+    let totalTransactions = 0;
+
+
+    accountList.forEach(
+
+        function(account) {
+
+
+            totalBalance +=
+                account.balance;
+
+
+            totalTransactions +=
+                account.transactions.length;
+
+        }
+
+    );
+
+
+    document.getElementById(
+        "totalAccounts"
+    ).innerText =
+        accountList.length;
+
+
+    document.getElementById(
+        "totalBalance"
+    ).innerText =
+        "₹" +
+        totalBalance.toFixed(2);
+
+
+    document.getElementById(
+        "totalTransactions"
+    ).innerText =
+        totalTransactions;
+
+}
+
+</script>
+
+
+</body>
+
+</html>
